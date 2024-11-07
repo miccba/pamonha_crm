@@ -3,10 +3,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { authAtom } from "../atoms/authAtom";
 
 const api = axios.create({
-  baseURL: "https://pamonha.snowy-grass-6e9e.workers.dev/",
+  baseURL: "https://pamonha.snowy-grass-6e9e.workers.dev",
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export const useAuth = () => {
