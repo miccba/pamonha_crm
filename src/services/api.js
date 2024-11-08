@@ -3,7 +3,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { authAtom } from "../atoms/authAtom";
 
 const api = axios.create({
-  baseURL: "https://brasil.hubify.com.ar",
+  //baseURL: "http://brasil.hubify.com.ar",
+  baseURL: "http://localhost:5174",
   headers: {
     "Content-Type": "application/json",
   },
@@ -141,6 +142,19 @@ export const useAuth = () => {
     }
   };
 
+  const getStats = async () => {
+    try {
+      if (auth.token) {
+        api.defaults.headers.common["Authorization"] = auth.token;
+      }
+      const response = await api.get(`/stats`);
+      return response.data;
+    } catch (error) {
+      console.error("Error al status", error);
+      return null;
+    }
+  };
+
   return {
     auth,
     getUsers,
@@ -152,5 +166,6 @@ export const useAuth = () => {
     changeStatusOrder,
     updateProduct,
     updateUser,
+    getStats,
   };
 };

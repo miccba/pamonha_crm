@@ -25,6 +25,7 @@ import { authAtom } from "./atoms/authAtom";
 import Loader from "./components/Loader";
 import Logo from "./assets/logo.png";
 import Logout from "./pages/Logout";
+import Stats from "./pages/Stats";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -90,6 +91,9 @@ const AppLayout = ({ children }) => {
             display: "flex",
             flexDirection: "column",
             flex: 1,
+            maxWidth: "100%", // Controla el máximo de ancho
+            overflow: "auto", // Maneja el desbordamiento si el contenido es demasiado grande
+            padding: "16px",
           }}
         >
           {children}
@@ -131,7 +135,7 @@ const App = () => {
           path="/"
           element={
             <AppLayout>
-              <div>Welcome to the Dashboard</div>
+              <Stats />
             </AppLayout>
           }
         />
