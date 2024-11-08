@@ -3,8 +3,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { authAtom } from "../atoms/authAtom";
 
 const api = axios.create({
-  //baseURL: "http://brasil.hubify.com.ar",
-  baseURL: "http://localhost:5174",
+  baseURL: "http://brasil.hubify.com.ar",
+  // baseURL: "http://localhost:5174",
   headers: {
     "Content-Type": "application/json",
   },
