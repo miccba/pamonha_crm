@@ -6,7 +6,7 @@ import {
   PieChartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu, Spin, theme } from "antd";
 import {
   Link,
   BrowserRouter as Router,
@@ -26,6 +26,7 @@ import Loader from "./components/Loader";
 import Logo from "./assets/logo.png";
 import Logout from "./pages/Logout";
 import Stats from "./pages/Stats";
+import Notifications from "./services/Notifications";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -82,6 +83,7 @@ const AppLayout = ({ children }) => {
           selectedKeys={[selectedKey]}
           items={items}
         />
+        <Notifications />
       </Sider>
 
       <Layout style={{ overflow: "auto", maxHeight: "100vh" }}>
