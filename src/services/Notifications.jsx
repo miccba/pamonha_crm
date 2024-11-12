@@ -23,13 +23,21 @@ const Notifications = () => {
       `https://brasil.hubify.com.ar/events?token=${token}`
     );
 
+    eventSource.onerror = (error) => {
+      console.error("Error en la conexión SSE:", error);
+      eventSource.close();
+    };
+
     eventSource.onmessage = (event) => {
       const newOrder = JSON.parse(event.data);
       console.log("Nuevo pedido recibido:", newOrder);
 
       if (userInteracted) {
-        // Solo reproducir el sonido si el usuario ha interactuado
-        new Audio("/sound/notification.mp3").play();
+        try {
+          new Audio("/sound/notification.mp3").play();
+        } catch (error) {
+          console.error("Error al reproducir sonido de notificación:", error);
+        }
       }
       message.info(`Nuevo pedido recibido con ID: ${newOrder.orderNumber}`);
     };
