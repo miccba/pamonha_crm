@@ -2,7 +2,7 @@ import { message, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 
 //const URL_BASE = "http://localhost:5174";
-const URL_BASE = "https://brasil.hubify.com.ar";
+const URL_BASE = "https://pamonha.snowy-grass-6e9e.workers.dev";
 
 const Notifications = () => {
   const [userInteracted, setUserInteracted] = useState(false);
