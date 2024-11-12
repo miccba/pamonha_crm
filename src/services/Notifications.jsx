@@ -1,6 +1,9 @@
 import { message, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 
+//const URL_BASE = "http://localhost:5174";
+const URL_BASE = "https://brasil.hubify.com.ar";
+
 const Notifications = () => {
   const [userInteracted, setUserInteracted] = useState(false);
 
@@ -19,12 +22,10 @@ const Notifications = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    const eventSource = new EventSource(
-      `https://brasil.hubify.com.ar/events?token=${token}`
-    );
+    const eventSource = new EventSource(`${URL_BASE}/events?token=${token}`);
 
     eventSource.onerror = (error) => {
-      console.error("Error en la conexión SSE:", error);
+      console.log("Error en la conexión SSE:", error);
       eventSource.close();
     };
 

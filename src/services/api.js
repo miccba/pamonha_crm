@@ -4,7 +4,7 @@ import { authAtom } from "../atoms/authAtom";
 
 const api = axios.create({
   baseURL: "https://brasil.hubify.com.ar",
-  // baseURL: "http://localhost:5174",
+  //baseURL: "http://localhost:5174",
   headers: {
     "Content-Type": "application/json",
   },
