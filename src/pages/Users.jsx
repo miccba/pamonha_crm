@@ -59,10 +59,12 @@ const Users = () => {
 
     const doc = new jsPDF();
 
-    // Título
+    const imageUrl = "https://pamonha-crm.pages.dev/assets/logo-CaUkhG5-.png";
+    doc.addImage(imageUrl, "PNG", 10, 10, 30, 30);
 
-    doc.setFontSize(15);
-    doc.text("Instruções para Instalação do Aplicativo Pamonha-Jet", 10, 10);
+    // Título
+    doc.setFontSize(14);
+    doc.text("Instruções para Instalação do Aplicativo Pamonha-Jet", 50, 25);
     doc.setFontSize(12);
 
     // Función para agregar texto con ajuste automático
@@ -75,30 +77,28 @@ const Users = () => {
       return y + textLines.length * lineHeight; // Devolver la nueva posición 'y'
     };
 
-    // Passo 1
-    let yPosition = 20;
+    // Passos de instalação
+    let yPosition = 50;
+    const appDownloadLink = "https://nodesinmotion.com/pamonha.apk"; // Cambia esta URL por la correcta
 
-    yPosition = addText("Passo 1: Escanear o código QR", yPosition);
-    yPosition = addText("1. Localize o código QR fornecido.", yPosition);
+    yPosition = addText("Passo 1: Baixar o aplicativo:", yPosition);
+
+    doc.setTextColor(0, 0, 255); // Establecer color azul para el enlace
+    doc.setFont("helvetica", "bold");
+    doc.textWithLink("Aperte aqui", 65, yPosition - 10, {
+      url: appDownloadLink,
+    });
+
+    doc.setFont("helvetica", "normal"); // Volver a la fuente normal
+    doc.setTextColor(0, 0, 0);
+
     yPosition = addText(
-      "2. Use a câmera do seu telefone ou um aplicativo de leitura de QR Code para escaneá-lo.",
+      "Você será redirecionado para uma página de download.",
       yPosition
     );
 
-    // Passo 2
-    yPosition = addText("Passo 2: Baixar o arquivo", yPosition);
     yPosition = addText(
-      "1. Após escanear o código QR, você será redirecionado para uma página de download.",
-      yPosition
-    );
-    yPosition = addText(
-      "2. Clique no botão de download para obter o arquivo de instalação (APK) no seu dispositivo.",
-      yPosition
-    );
-
-    // Passo 3
-    yPosition = addText(
-      "Passo 3: Permitir a instalação de aplicativos externos",
+      "Passo 2: Permitir a instalação de aplicativos externos",
       yPosition
     );
     yPosition = addText(
@@ -119,7 +119,7 @@ const Users = () => {
     );
 
     // Passo 4
-    yPosition = addText("Passo 4: Finalizar a instalação", yPosition);
+    yPosition = addText("Passo 3: Finalizar a instalação", yPosition);
     yPosition = addText(
       "1. Confirme e siga as instruções na tela para concluir a instalação.",
       yPosition
@@ -148,7 +148,11 @@ const Users = () => {
     );
     yPosition = addText(`- Usuário atribuído: ${record.email}`, yPosition);
     yPosition = addText(
-      "- Senha atribuída: _______________________",
+      "- Senha: Digite a senha de sua preferência. Lembre-se de 8 dígitos alfanuméricos.",
+      yPosition
+    );
+    yPosition = addText(
+      "- Biometria: O aplicativo nas entradas subsequentes oferecerá a você a entrada por biometria.",
       yPosition
     );
 
