@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Table, Button, Tooltip, Input, Switch, message } from "antd";
+import { jsPDF } from "jspdf";
 import {
   EnvironmentOutlined,
   DeleteOutlined,
   PoweroffOutlined,
   KeyOutlined,
   SearchOutlined,
+  PrinterOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "../services/api";
 
@@ -49,6 +51,119 @@ const Users = () => {
       message.success("Usuário actualizado correctamente");
     } catch (error) {
       message.error("Error al actualizar el Usuário.");
+    }
+  };
+
+  const handlePrinterClick = (record) => {
+    console.log(record);
+
+    const doc = new jsPDF();
+
+    // Título
+
+    doc.setFontSize(15);
+    doc.text("Instruções para Instalação do Aplicativo Pamonha-Jet", 10, 10);
+    doc.setFontSize(12);
+
+    // Función para agregar texto con ajuste automático
+    const addText = (text, y) => {
+      const margin = 10; // Margen izquierdo
+      const maxWidth = 180; // Ancho máximo del texto
+      const lineHeight = 10; // Altura de la línea
+      const textLines = doc.splitTextToSize(text, maxWidth); // Ajuste de texto
+      doc.text(textLines, margin, y); // Agregar texto ajustado
+      return y + textLines.length * lineHeight; // Devolver la nueva posición 'y'
+    };
+
+    // Passo 1
+    let yPosition = 20;
+
+    yPosition = addText("Passo 1: Escanear o código QR", yPosition);
+    yPosition = addText("1. Localize o código QR fornecido.", yPosition);
+    yPosition = addText(
+      "2. Use a câmera do seu telefone ou um aplicativo de leitura de QR Code para escaneá-lo.",
+      yPosition
+    );
+
+    // Passo 2
+    yPosition = addText("Passo 2: Baixar o arquivo", yPosition);
+    yPosition = addText(
+      "1. Após escanear o código QR, você será redirecionado para uma página de download.",
+      yPosition
+    );
+    yPosition = addText(
+      "2. Clique no botão de download para obter o arquivo de instalação (APK) no seu dispositivo.",
+      yPosition
+    );
+
+    // Passo 3
+    yPosition = addText(
+      "Passo 3: Permitir a instalação de aplicativos externos",
+      yPosition
+    );
+    yPosition = addText(
+      "1. Quando o download estiver concluído, tente abrir o arquivo.",
+      yPosition
+    );
+    yPosition = addText(
+      "2. O sistema solicitará autorização para instalar aplicativos de fontes desconhecidas.",
+      yPosition
+    );
+    yPosition = addText(
+      "   - Em dispositivos Android, ative esta opção nas configurações de segurança do seu telefone.",
+      yPosition
+    );
+    yPosition = addText(
+      "   - Nota importante: Esta autorização é necessária apenas para instalar este aplicativo e pode ser desativada depois.",
+      yPosition
+    );
+
+    // Passo 4
+    yPosition = addText("Passo 4: Finalizar a instalação", yPosition);
+    yPosition = addText(
+      "1. Confirme e siga as instruções na tela para concluir a instalação.",
+      yPosition
+    );
+    yPosition = addText(
+      "2. Após instalado, abra o aplicativo no menu do seu dispositivo.",
+      yPosition
+    );
+
+    // Nota importante
+    yPosition = addText("Nota importante", yPosition);
+    yPosition = addText(
+      "O arquivo de instalação requer autorização do proprietário do telefone para prosseguir com a instalação.",
+      yPosition
+    );
+    yPosition = addText(
+      "Se você não for o proprietário, consulte-o antes de continuar.",
+      yPosition
+    );
+
+    // Dados de acesso
+    yPosition = addText("Dados de acesso", yPosition);
+    yPosition = addText(
+      "Preencha as informações com os dados fornecidos:",
+      yPosition
+    );
+    yPosition = addText(`- Usuário atribuído: ${record.email}`, yPosition);
+    yPosition = addText(
+      "- Senha atribuída: _______________________",
+      yPosition
+    );
+
+    // Gerar o PDF como Blob
+    const pdfBlob = doc.output("blob");
+
+    // Criar URL do Blob
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+
+    // Abrir o PDF em uma nova janela
+    const printWindow = window.open(pdfUrl, "_blank");
+    if (!printWindow) {
+      alert(
+        "Não foi possível abrir a janela. Verifique se os pop-ups estão habilitados."
+      );
     }
   };
 
@@ -164,6 +279,12 @@ const Users = () => {
             <Button
               icon={<KeyOutlined />}
               onClick={() => handleChangePasswordClick(record.id)}
+            />
+          </Tooltip>
+          <Tooltip title="Imprimir instruccioes">
+            <Button
+              icon={<PrinterOutlined />}
+              onClick={() => handlePrinterClick(record)}
             />
           </Tooltip>
         </div>
