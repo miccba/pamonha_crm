@@ -262,6 +262,14 @@ const Users = () => {
       ),
     },
     {
+      title: "Registrado",
+      dataIndex: "password",
+      key: "password",
+      render: (active, record) => (
+        <p>{record.password.length > 0 ? "Sim" : "Não"}</p>
+      ),
+    },
+    {
       title: "Ações",
       key: "actions",
       render: (text, record) => (

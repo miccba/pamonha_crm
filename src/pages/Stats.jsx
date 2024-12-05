@@ -50,23 +50,29 @@ const Stats = () => {
             <Statistic title="Usuários ativos" value={stats.activeUsers} />
           </Card>
         </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="Usuário que compra mais"
-              value={`${stats.userWithMostPurchases.name} - R$ ${stats.userWithMostPurchases.totalSpent}`}
-            />
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card>
-            <Statistic
-              title="Produto mais vendido"
-              value={stats.bestSellingProduct.name}
-              suffix={`(${stats.bestSellingProduct.totalSold} vendidos)`}
-            />
-          </Card>
-        </Col>
+        {stats.userWithMostPurchases && (
+          <Col span={6}>
+            <Card>
+              <Statistic
+                title="Usuário que compra mais"
+                value={`${stats.userWithMostPurchases.name} - R$ ${stats.userWithMostPurchases.totalSpent}`}
+              />
+            </Card>
+          </Col>
+        )}
+
+        {stats.bestSellingProduct && stats.bestSellingProduct.totalSold && (
+          <Col span={6}>
+            <Card>
+              <Statistic
+                title="Produto mais vendido"
+                value={stats.bestSellingProduct.name}
+                suffix={`(${stats.bestSellingProduct.totalSold} vendidos)`}
+              />
+            </Card>
+          </Col>
+        )}
+
         <Col span={6}>
           <Card>
             <Statistic title="Usuários ociosos" value={stats.inactiveUsers} />
