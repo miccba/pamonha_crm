@@ -27,6 +27,7 @@ import Logo from "./assets/logo.png";
 import Logout from "./pages/Logout";
 import Stats from "./pages/Stats";
 import Notifications from "./services/Notifications";
+import Order from "./pages/order/Order";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -44,7 +45,8 @@ const items = [
   getItem("Usuários", "2", <UserOutlined />, null, "/users"),
   getItem("Produtos", "3", <DesktopOutlined />, null, "/products"),
   getItem("Pedidos", "4", <FileOutlined />, null, "/orders"),
-  getItem("Desconectar", "5", <LogoutOutlined />, null, "/logout"),
+  getItem("Gerar pedido", "5", <FileOutlined />, null, "/order"),
+  getItem("Desconectar", "6", <LogoutOutlined />, null, "/logout"),
 ];
 
 const AppLayout = ({ children }) => {
@@ -162,6 +164,14 @@ const App = () => {
           element={
             <AppLayout>
               <Orders />
+            </AppLayout>
+          }
+        />
+        <Route
+          path="/order"
+          element={
+            <AppLayout>
+              <Order />
             </AppLayout>
           }
         />
