@@ -5,6 +5,8 @@ import Incrementer from "../../components/Incrementer";
 import useOrder from "./useOrder"; // El hook que manejamos
 import "./Order.css";
 
+const UPLOAD_FOLDER = import.meta.env.VITE_UPLOAD_FOLDER;
+
 const { Content, Footer } = Layout;
 
 export default function Order() {
@@ -30,7 +32,7 @@ export default function Order() {
       <Row align="middle" gutter={[16, 16]}>
         <Col span={4}>
           <img
-            src={`https://brasil.hubify.com.ar/uploads/${item.image}`}
+            src={`${UPLOAD_FOLDER}${item.image}`}
             alt={item.name}
             style={{ borderRadius: 5, width: 65, height: 65 }}
           />
