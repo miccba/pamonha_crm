@@ -150,6 +150,7 @@ const Orders = () => {
   const handleDelete = async (id) => {
     try {
       await deleteOrder(id);
+      setOrders(orders.filter((item) => item.id !== id));
       message.success(`Pedido atualizada.`);
     } catch (error) {
       message.error("Erro ao atualizar o status do pedido.");
