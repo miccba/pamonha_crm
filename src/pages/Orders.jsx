@@ -5,6 +5,7 @@ import {
   SendOutlined,
   CheckCircleOutlined,
   ClockCircleOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 
 const UPLOAD_FOLDER = import.meta.env.VITE_UPLOAD_FOLDER;
@@ -13,7 +14,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [filterStatus, setFilterStatus] = useState("Em espera");
-  const { getOrders, changeStatusOrder } = useAuth();
+  const { getOrders, changeStatusOrder, deleteOrder } = useAuth();
 
   useEffect(() => {
     const fetch = async () => {
@@ -83,6 +84,12 @@ const Orders = () => {
               />
             </Tooltip>
           )}
+          <Tooltip title="Apagar">
+            <Button
+              onClick={() => handleDelete(record.id)}
+              icon={<DeleteOutlined />}
+            />
+          </Tooltip>
         </div>
       ),
     },
@@ -137,6 +144,15 @@ const Orders = () => {
       } catch (error) {
         message.error("Erro ao atualizar o status do pedido.");
       }
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteOrder(id);
+      message.success(`Pedido atualizada.`);
+    } catch (error) {
+      message.error("Erro ao atualizar o status do pedido.");
     }
   };
 

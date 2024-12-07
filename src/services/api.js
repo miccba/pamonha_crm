@@ -65,6 +65,19 @@ export const useAuth = () => {
     }
   };
 
+  const deleteOrder = async (id) => {
+    try {
+      if (auth.token) {
+        api.defaults.headers.common["Authorization"] = auth.token;
+      }
+      const response = await api.delete(`/orders/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error al obtener usuarios:", error);
+      return [];
+    }
+  };
+
   const login = async (data) => {
     try {
       const response = await api.post("/users/login", data);
@@ -181,5 +194,6 @@ export const useAuth = () => {
     updateUser,
     getStats,
     postOrder,
+    deleteOrder,
   };
 };
